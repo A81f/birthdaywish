@@ -14,35 +14,62 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-      background-size: 400% 400%;
-      animation: gradient 10s ease infinite;
+      background: radial-gradient(circle at top, #ff9a9e, #fad0c4, #a18cd1);
+      animation: bgMove 10s infinite alternate;
       font-family: 'Pacifico', cursive;
       color: #fff;
       text-align: center;
       overflow: hidden;
     }
 
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes bgMove {
+      0% { background-position: top left; filter: hue-rotate(0deg); }
+      100% { background-position: bottom right; filter: hue-rotate(360deg); }
     }
 
     h1 {
-      font-size: 4em;
-      text-shadow: 0 0 20px #ff6ec4, 0 0 30px #ff6ec4;
+      font-size: 3em;
+      text-shadow: 0 0 10px #fff, 0 0 30px #ff6ec4;
       animation: glow 2s ease-in-out infinite alternate;
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 10px #ff6ec4, 0 0 20px #ff6ec4; }
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff6ec4; }
       to { text-shadow: 0 0 30px #ff6ec4, 0 0 60px #ff6ec4; }
     }
 
     p {
-      font-size: 1.5em;
+      font-size: 1.3em;
+    }
+
+    input {
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 25px;
+      outline: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.1em;
       margin-top: 10px;
+      border: none;
+      border-radius: 25px;
+      background: #ff6ec4;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff9a9e;
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
     }
 
     .balloons {
@@ -50,17 +77,16 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      overflow: hidden;
     }
 
     .balloon {
       width: 50px;
       height: 70px;
-      background: #ff6ec4;
       border-radius: 50%;
       position: absolute;
       bottom: -100px;
       animation: float 10s linear infinite;
+      opacity: 0.8;
     }
 
     @keyframes float {
@@ -72,13 +98,35 @@
 </head>
 <body>
   <div class="balloons">
-    <div class="balloon" style="left:10%; animation-delay:0s;"></div>
+    <div class="balloon" style="left:10%; animation-delay:0s; background:#ff6ec4;"></div>
     <div class="balloon" style="left:30%; animation-delay:2s; background:#f9ed69;"></div>
     <div class="balloon" style="left:50%; animation-delay:4s; background:#00f5d4;"></div>
     <div class="balloon" style="left:70%; animation-delay:6s; background:#ff9a9e;"></div>
     <div class="balloon" style="left:90%; animation-delay:8s; background:#a18cd1;"></div>
   </div>
-  <h1>Happy Birthday, [Tain]! 🎂</h1>
-  <p>Wishing you all the happiness in the world!</p>
+
+  <div id="input-section">
+    <h1>Whose Birthday?</h1>
+    <input type="text" id="nameInput" placeholder="Enter Name">
+    <button onclick="showBirthday()">Celebrate 🎉</button>
+  </div>
+
+  <div id="wish-section" class="hidden">
+    <h1 id="wishText"></h1>
+    <p>Wishing you a day full of joy, love & happiness! 🎂</p>
+  </div>
+
+  <script>
+    function showBirthday() {
+      let name = document.getElementById('nameInput').value.trim();
+      if(name === "") {
+        alert("Please enter a name!");
+        return;
+      }
+      document.getElementById('input-section').classList.add('hidden');
+      document.getElementById('wishText').innerText = "Happy Birthday, " + name + "!";
+      document.getElementById('wish-section').classList.remove('hidden');
+    }
+  </script>
 </body>
 </html>
