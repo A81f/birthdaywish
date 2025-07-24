@@ -113,10 +113,26 @@
 
   <div id="wish-section" class="hidden">
     <h1 id="wishText"></h1>
-    <p>Wishing you a day full of joy, love & happiness! 🎂</p>
+    <p id="randomWish"></p>
+    <button onclick="newWish()">New Wish 🔄</button>
   </div>
 
   <script>
+    const wishes = [
+      "Wishing you a day filled with love and cheer! 🎂",
+      "Happy Birthday! May all your dreams come true! 🌟",
+      "Have a fantastic day and a fabulous year ahead! 🎉",
+      "Sending you happiness and joy on your special day! 💖",
+      "Hope your birthday is as special as you are! 🎁",
+      "Cheers to another amazing year in your life! 🥳",
+      "May your birthday bring you endless happiness! 🍰",
+      "Wishing you success, health and lots of smiles! 😊"
+    ];
+
+    function getRandomWish() {
+      return wishes[Math.floor(Math.random() * wishes.length)];
+    }
+
     function showBirthday() {
       let name = document.getElementById('nameInput').value.trim();
       if(name === "") {
@@ -125,7 +141,12 @@
       }
       document.getElementById('input-section').classList.add('hidden');
       document.getElementById('wishText').innerText = "Happy Birthday, " + name + "!";
+      document.getElementById('randomWish').innerText = getRandomWish();
       document.getElementById('wish-section').classList.remove('hidden');
+    }
+
+    function newWish() {
+      document.getElementById('randomWish').innerText = getRandomWish();
     }
   </script>
 </body>
